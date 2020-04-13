@@ -20,6 +20,7 @@ var data = [
         "text": "雨伞"
     },
     {
+        maxAlternatives: 20,
         "image": "assets/5e92e8c38ef7c7826650adb1.png",
         "sound": "assets/5e92e8c38ef7c7826650adb1.mp3",
         "pinyin": "yǔ yī",

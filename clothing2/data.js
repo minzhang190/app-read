@@ -68,6 +68,7 @@ var data = [
         "text": "短裤"
     },
     {
+        maxAlternatives: 20,
         "image": "assets/5e92e8be8ef7c7826650ada9.png",
         "sound": "assets/5e92e8be8ef7c7826650ada9.mp3",
         "pinyin": "yù yī",

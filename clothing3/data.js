@@ -8,6 +8,7 @@ var data = [
         "text": "睡衣"
     },
     {
+        maxAlternatives: 3,
         "image": "assets/5e8dacb854bd1fe2183032dd.png",
         "sound": "assets/5e8dacb854bd1fe2183032dd.mp3",
         "pinyin": "xié",
@@ -44,6 +45,7 @@ var data = [
         "text": "眼镜"
     },
     {
+        maxAlternatives: 2,
         "image": "assets/5e8dacb854bd1fe2183032db.png",
         "sound": "assets/5e8dacb854bd1fe2183032db.mp3",
         "pinyin": "mò jìng",

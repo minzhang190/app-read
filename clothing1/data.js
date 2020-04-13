@@ -8,12 +8,14 @@ var data = [
         "text": "衣服"
     },
     {
+        maxAlternatives: 3,
         "image": "assets/5e92e8b58ef7c7826650ad9d.png",
         "sound": "assets/5e92e8b58ef7c7826650ad9d.mp3",
         "pinyin": "chuān",
         "text": "穿"
     },
     {
+        maxAlternatives: 7,
         "image": "assets/5e92e8b58ef7c7826650ad9e.png",
         "sound": "assets/5e92e8b58ef7c7826650ad9e.mp3",
         "pinyin": "dài",
@@ -26,6 +28,7 @@ var data = [
         "text": "脱"
     },
     {
+        maxAlternatives: 2,
         "image": "assets/5e92e8b68ef7c7826650ada0.png",
         "sound": "assets/5e92e8b68ef7c7826650ada0.mp3",
         "pinyin": "zhāi",
