@@ -14,6 +14,7 @@ var data = [
         "text": "嘴唇"
     },
     {
+        maxAlternative: 10,
         "image": "assets/5e8dac932c02d5b61d430636.png",
         "sound": "assets/5e8dac932c02d5b61d430636.mp3",
         "pinyin": "zuǐ",
