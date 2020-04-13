@@ -1,3 +1,76 @@
-var title = "Y\u012bfu (3)";
+var title = "Yīfu (3)";
 
-var data = [{"image": "assets/5e8dacb854bd1fe2183032e0.png", "sound": "assets/5e8dacb854bd1fe2183032e0.mp3", "pinyin": "shu\u00ec y\u012b", "text": "\u7761\u8863"}, {"image": "assets/5e8dacb854bd1fe2183032dd.png", "sound": "assets/5e8dacb854bd1fe2183032dd.mp3", "pinyin": "xi\u00e9", "text": "\u978b"}, {"image": "assets/5e92e8bf8ef7c7826650adaa.png", "sound": "assets/5e92e8bf8ef7c7826650adaa.mp3", "pinyin": "y\u00f9n d\u00f2ng xi\u00e9", "text": "\u8fd0\u52a8\u978b"}, {"image": "assets/5e8dacb854bd1fe2183032de.png", "sound": "assets/5e8dacb854bd1fe2183032de.mp3", "pinyin": "xu\u0113 zi", "text": "\u9774\u5b50"}, {"image": "assets/5e92e8bf8ef7c7826650adab.png", "sound": "assets/5e92e8bf8ef7c7826650adab.mp3", "pinyin": "g\u0101o g\u0113n xi\u00e9", "text": "\u9ad8\u8ddf\u978b"}, {"image": "assets/5e92e8c08ef7c7826650adac.png", "sound": "assets/5e92e8c08ef7c7826650adac.mp3", "pinyin": "tu\u014d xi\u00e9", "text": "\u62d6\u978b"}, {"image": "assets/5e92e8c08ef7c7826650adad.png", "sound": "assets/5e92e8c08ef7c7826650adad.mp3", "pinyin": "y\u01cen j\u00ecng", "text": "\u773c\u955c"}, {"image": "assets/5e8dacb854bd1fe2183032db.png", "sound": "assets/5e8dacb854bd1fe2183032db.mp3", "pinyin": "m\u00f2 j\u00ecng", "text": "\u58a8\u955c"}, {"image": "assets/5e8dacb854bd1fe2183032d8.png", "sound": "assets/5e8dacb854bd1fe2183032d8.mp3", "pinyin": "m\u00e0o zi", "text": "\u5e3d\u5b50"}, {"image": "assets/5e92e8c18ef7c7826650adae.png", "sound": "assets/5e92e8c18ef7c7826650adae.mp3", "pinyin": "b\u00e0ng qi\u00fa m\u00e0o", "text": "\u68d2\u7403\u5e3d"}, {"image": "assets/5e8dacb854bd1fe2183032d9.png", "sound": "assets/5e8dacb854bd1fe2183032d9.mp3", "pinyin": "w\u00e9i j\u012bn", "text": "\u56f4\u5dfe"}, {"image": "assets/5e8dacb854bd1fe2183032da.png", "sound": "assets/5e8dacb854bd1fe2183032da.mp3", "pinyin": "sh\u01d2u t\u00e0o", "text": "\u624b\u5957"}];
+var data = [
+    {
+        "image": "assets/5e8dacb854bd1fe2183032e0.png",
+        "sound": "assets/5e8dacb854bd1fe2183032e0.mp3",
+        "pinyin": "shuì yī",
+        "text": "睡衣"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032dd.png",
+        "sound": "assets/5e8dacb854bd1fe2183032dd.mp3",
+        "pinyin": "xié",
+        "text": "鞋"
+    },
+    {
+        "image": "assets/5e92e8bf8ef7c7826650adaa.png",
+        "sound": "assets/5e92e8bf8ef7c7826650adaa.mp3",
+        "pinyin": "yùn dòng xié",
+        "text": "运动鞋"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032de.png",
+        "sound": "assets/5e8dacb854bd1fe2183032de.mp3",
+        "pinyin": "xuē zi",
+        "text": "靴子"
+    },
+    {
+        "image": "assets/5e92e8bf8ef7c7826650adab.png",
+        "sound": "assets/5e92e8bf8ef7c7826650adab.mp3",
+        "pinyin": "gāo gēn xié",
+        "text": "高跟鞋"
+    },
+    {
+        "image": "assets/5e92e8c08ef7c7826650adac.png",
+        "sound": "assets/5e92e8c08ef7c7826650adac.mp3",
+        "pinyin": "tuō xié",
+        "text": "拖鞋"
+    },
+    {
+        "image": "assets/5e92e8c08ef7c7826650adad.png",
+        "sound": "assets/5e92e8c08ef7c7826650adad.mp3",
+        "pinyin": "yǎn jìng",
+        "text": "眼镜"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032db.png",
+        "sound": "assets/5e8dacb854bd1fe2183032db.mp3",
+        "pinyin": "mò jìng",
+        "text": "墨镜"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032d8.png",
+        "sound": "assets/5e8dacb854bd1fe2183032d8.mp3",
+        "pinyin": "mào zi",
+        "text": "帽子"
+    },
+    {
+        "image": "assets/5e92e8c18ef7c7826650adae.png",
+        "sound": "assets/5e92e8c18ef7c7826650adae.mp3",
+        "pinyin": "bàng qiú mào",
+        "text": "棒球帽"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032d9.png",
+        "sound": "assets/5e8dacb854bd1fe2183032d9.mp3",
+        "pinyin": "wéi jīn",
+        "text": "围巾"
+    },
+    {
+        "image": "assets/5e8dacb854bd1fe2183032da.png",
+        "sound": "assets/5e8dacb854bd1fe2183032da.mp3",
+        "pinyin": "shǒu tào",
+        "text": "手套"
+    }
+];
