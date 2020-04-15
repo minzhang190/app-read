@@ -37,6 +37,7 @@ recognition.onend = function(event) {
     runningIndex = -1;
     $runningText.text('Nothing detected');
     $('.go').removeClass('disabled').text('Go');
+    gtag('event', 'read-end', {event_category: 'app-read', event_label: answer});
 };
 
 recognition.onresult = function(event) {
@@ -45,6 +46,7 @@ recognition.onresult = function(event) {
         return;
     }
     var matched = false;
+    var matchedIdx = -1;
     Array.prototype.forEach.call(event.results[0], function(alternative, idx) {
         if (matched) {
             return;
@@ -53,6 +55,7 @@ recognition.onresult = function(event) {
         var confidence = alternative.confidence;
         if (answer == result) {
             matched = true;
+            matchedIdx = idx;
         }
         console.log('answer', answer, 'idx', idx, 'result', result, 'confidence', confidence, 'match', matched);
     });
@@ -60,8 +63,10 @@ recognition.onresult = function(event) {
     runningIndex = -1;
     if (matched) {
         $runningText.text('Correct!').parents('.card-body').addClass('bg-success');
+        gtag('event', 'read-match', {event_category: 'app-read', event_label: answer, value: matchedIdx});
     } else {
         $runningText.text('Try again');
+        gtag('event', 'read-mismatch', {event_category: 'app-read', event_label: answer});
     }
     $('.go').removeClass('disabled').text('Go');
 };
@@ -74,6 +79,7 @@ recognition.onnomatch = function(event) {
     runningIndex = -1;
     $runningText.text('No match');
     $('.go').removeClass('disabled').text('Go');
+    gtag('event', 'read-nomatch', {event_category: 'app-read', event_label: answer});
 };
 
 recognition.onerror = function(event) {
@@ -84,6 +90,7 @@ recognition.onerror = function(event) {
     runningIndex = -1;
     $runningText.text('Error: ' + event.error);
     $('.go').removeClass('disabled').text('Go');
+    gtag('event', 'read-error-' + event.error, {event_category: 'app-read', event_label: answer});
 };
 
 recognition.onspeechend = function(event) {
@@ -91,6 +98,7 @@ recognition.onspeechend = function(event) {
         return;
     }
     $runningText.text('Recognizing');
+    gtag('event', 'read-speechend', {event_category: 'app-read', event_label: answer});
     recognition.stop();
 };
 
@@ -127,6 +135,7 @@ data.forEach(function(word, index) {
             running = true;
             recognition.lang = word.lang || 'cmn-Hans-CN';
             recognition.maxAlternatives = word.maxAlternatives || 1;
+            gtag('event', 'read-start', {event_category: 'app-read', event_label: answer});
             recognition.start();
         });
     });
