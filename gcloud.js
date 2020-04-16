@@ -66,6 +66,7 @@ data.forEach(function(word, index) {
                             running = false;
                             $text.text('Error ' + result.error.code + ' (' + result.error.status + '): ' + result.error.message);
                             $('.go').removeClass('disabled').text('Go');
+                            gtag('event', 'gcloud-gcerr-' + result.error.code, {event_category: 'app-read-gcloud', event_label: word.text});
                             return;
                         }
 
@@ -73,10 +74,12 @@ data.forEach(function(word, index) {
                             running = false;
                             $text.text('Nothing detected');
                             $('.go').removeClass('disabled').text('Go');
+                            gtag('event', 'gcloud-noresult', {event_category: 'app-read-gcloud', event_label: word.text});
                             return;
                         }
 
                         var matched = false;
+                        var matchedIdx = 0;
                         result.results[0].alternatives.forEach(function(alternative, idx) {
                             if (matched) {
                                 return;
@@ -85,6 +88,7 @@ data.forEach(function(word, index) {
                             var confidence = alternative.confidence;
                             if (word.text == result) {
                                 matched = true;
+                                matchedIdx = idx;
                             }
                             console.log('answer', word.text, 'idx', idx, 'result', result, 'confidence', confidence, 'match', matched);
                         });
@@ -92,20 +96,26 @@ data.forEach(function(word, index) {
                         running = false;
                         if (matched) {
                             $text.text('Correct!').parents('.card-body').addClass('bg-success');
+                            gtag('event', 'gcloud-match', {event_category: 'app-read-gcloud', event_label: word.text, value: matchedIdx});
                         } else {
                             $text.text('Try again');
+                            gtag('event', 'gcloud-mismatch', {event_category: 'app-read-gcloud', event_label: word.text});
                         }
                         $('.go').removeClass('disabled').text('Go');
                     }).catch(function(err) {
                         running = false;
                         $text.text('JSON ' + err.name + ': ' + err.message);
                         $('.go').removeClass('disabled').text('Go');
+                        gtag('event', 'gcloud-resperr-' + err.name, {event_category: 'app-read-gcloud', event_label: word.text});
                     });
                 }).catch(function(err) {
                     running = false;
                     $text.text('Fetch ' + err.name + ': ' + err.message);
                     $('.go').removeClass('disabled').text('Go');
+                    gtag('event', 'gcloud-fetcherr-' + err.name, {event_category: 'app-read-gcloud', event_label: word.text});
                 });
+
+                gtag('event', 'gcloud-send', {event_category: 'app-read-gcloud', event_label: word.text});
             };
             reader.readAsDataURL(blob);
         });
@@ -158,6 +168,7 @@ data.forEach(function(word, index) {
                     }
                 }, 1000);
 
+                gtag('event', 'gcloud-record', {event_category: 'app-read-gcloud', event_label: word.text});
                 recorder.record();
             }).catch(function(err) {
                 running = false;

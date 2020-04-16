@@ -45,10 +45,12 @@ data.forEach(function(word, index) {
                         running = false;
                         $text.text('Status: ' + result.RecognitionStatus);
                         $('.go').removeClass('disabled').text('Go');
+                        gtag('event', 'azure-status-' + result.RecognitionStatus, {event_category: 'app-read-azure', event_label: word.text});
                         return;
                     }
 
                     var matched = false;
+                    var matchedIdx = -1;
 
                     result.NBest.forEach(function(best, idx) {
                         if (matched || idx >= (word.maxAlternatives || 1)) {
@@ -58,6 +60,7 @@ data.forEach(function(word, index) {
                         var confidence = best.Confidence;
                         if (word.text == result) {
                             matched = true;
+                            matchedIdx = idx;
                         }
                         console.log('answer', word.text, 'idx', idx, 'result', result, 'confidence', confidence, 'match', matched);
                     });
@@ -65,15 +68,20 @@ data.forEach(function(word, index) {
                     running = false;
                     if (matched) {
                         $text.text('Correct!').parents('.card-body').addClass('bg-success');
+                        gtag('event', 'azure-matched', {event_category: 'app-read-azure', event_label: word.text, value: matchedIdx});
                     } else {
                         $text.text('Try again');
+                        gtag('event', 'azure-mismatched', {event_category: 'app-read-azure', event_label: word.text});
                     }
                     $('.go').removeClass('disabled').text('Go');
                 }, function (err) {
                     running = false;
                     $text.text('Error: ' + err);
                     $('.go').removeClass('disabled').text('Go');
+                    gtag('event', 'azure-error', {event_category: 'app-read-azure', event_label: word.text});
                 });
+
+                gtag('event', 'azure-send', {event_category: 'app-read-azure', event_label: word.text});
             });
 
             recorder = motu = null;
@@ -105,6 +113,7 @@ data.forEach(function(word, index) {
                 motu.connect(pitchShift);
                 pitchShift.connect(destination);
                 recorder = new Recorder(destination, {numChannels: 1});
+                gtag('event', 'azure-record', {event_category: 'app-read-azure', event_label: word.text});
                 recorder.record();
             }).catch(function(err) {
                 running = false;

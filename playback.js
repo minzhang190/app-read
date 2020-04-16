@@ -25,8 +25,11 @@ data.forEach(function(word, index) {
 
             recorder.exportWAV(function(blob) {
                 running = false;
-                $text.empty().append($('<audio controls/>').attr('src', URL.createObjectURL(blob)));
+                $text.empty().append($('<audio controls/>').attr('src', URL.createObjectURL(blob)).on('play', function(e) {
+                    gtag('event', 'playback-play', {event_category: 'app-read-playback', event_label: word.text});
+                }));
                 $('.go').removeClass('disabled').text('Go');
+                gtag('event', 'playback-ready', {event_category: 'app-read-playback', event_label: word.text});
             });
 
             recorder = motu = null;
@@ -58,6 +61,7 @@ data.forEach(function(word, index) {
                 motu.connect(pitchShift);
                 pitchShift.connect(destination);
                 recorder = new Recorder(destination, {numChannels: 1});
+                gtag('event', 'playback-record', {event_category: 'app-read-playback', event_label: word.text});
                 recorder.record();
             }).catch(function(err) {
                 running = false;
