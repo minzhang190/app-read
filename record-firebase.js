@@ -50,6 +50,7 @@ data.forEach(function(word, index) {
     var $card = $('<div/>').addClass('card mb-4 shadow-sm').appendTo($col);
     var $body = $('<div/>').addClass('card-body').appendTo($card);
     var $text = $('<p/>').addClass('card-text text-center').text('To-do').appendTo($body);
+    var $audio = $('<p/>').addClass('card-text text-center').appendTo($body);
     var $flex = $('<div/>').addClass('d-flex justify-content-between align-items-center').appendTo($body);
     var $small = $('<span/>').addClass('text-dark').text(word.pinyin).appendTo($flex);
     var $group = $('<div/>').addClass('btn-group').appendTo($flex);
@@ -61,10 +62,6 @@ data.forEach(function(word, index) {
 
     var recorder = null, gumStream = null, interval = null, chunks = null;
     var countDown = initialCountDown = 10;
-
-    function bg(suffix) {
-        $body.removeClass('bg-primary bg-secondary bg-success bg-danger bg-warning bg-info bg-light bg-dark bg-white').addClass('bg-' + suffix);
-    }
 
     function stop() {
         recorder.stop();
@@ -80,7 +77,7 @@ data.forEach(function(word, index) {
         var blob = new Blob(chunks, {type: mimeType});
 
         running = false;
-        $text.empty().append($('<audio controls/>').attr('src', URL.createObjectURL(blob)));
+        $audio.append($('<audio controls/>').attr('src', URL.createObjectURL(blob)));
         $('.go').removeClass('disabled').text('Go');
         gtag('event', 'firebase-ready', {event_category: 'app-read-record-firebase', event_label: word.text});
 
@@ -92,32 +89,33 @@ data.forEach(function(word, index) {
         var storageRef = firebase.storage().ref().child('users').child(clientId).child('read-recordings').child(uuidv4() + extension);
         var dbCollection = firebase.firestore().collection('users').doc(clientId).collection('read-recordings');
 
+        $text.text('Uploading...');
         storageRef.put(blob, {contentType: mimeType}).then(function(snapshot) {
-            bg('warning');
+            $text.text('Checking ...');
             console.log(snapshot);
             storageRef.getDownloadURL().then(function(url) {
-                bg('info');
+                $text.text('Submitting ...');
                 console.log(url);
                 dbCollection.add({
                     url: url,
                     text: word.text,
                     time: firebase.firestore.FieldValue.serverTimestamp()
                 }).then(function(docRef) {
-                    bg('success');
+                    $text.text('Submitted!').parents('.card-body').addClass('bg-success');
                     console.log(docRef);
                     gtag('event', 'firebase-add', {event_category: 'app-read-record-firebase', event_label: word.text});
                 }).catch(function(error) {
-                    bg('danger');
-                    console.error(error);
+                    $text.text(error.name + ': ' + error.message);
+                    gtag('event', 'firebase-add-error-' + error.name, {event_category: 'app-read-record-firebase', event_label: word.text});
                 });
             }).catch(function(error) {
-                bg('danger');
-                console.error(error);
+                $text.text(error.name + ': ' + error.message);
+                gtag('event', 'firebase-url-error-' + error.name, {event_category: 'app-read-record-firebase', event_label: word.text});
             });
             gtag('event', 'firebase-put', {event_category: 'app-read-record-firebase', event_label: word.text});
         }).catch(function(error) {
-            bg('danger');
-            console.error(error);
+            $text.text(error.name + ': ' + error.message);
+            gtag('event', 'firebase-put-error-' + error.name, {event_category: 'app-read-record-firebase', event_label: word.text});
         });
     }
 
@@ -134,6 +132,7 @@ data.forEach(function(word, index) {
 
         running = true;
         $('.go').addClass('disabled').text('...');
+        $audio.empty();
         $text.text('Listen now');
 
         createjs.Sound.play('word-' + index).on('complete', function() {
