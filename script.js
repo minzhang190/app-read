@@ -34,6 +34,13 @@ if (config.service == 'azure')  {
         'https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js',
         'playback.js'
     ];
+} else if (config.service == 'record-firebase') {
+    scriptFiles = [
+        'https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js',
+        'https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js',
+        'https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js',
+        'record-firebase.js'
+    ];
 }
 
 scriptFiles.forEach(function(url) {
