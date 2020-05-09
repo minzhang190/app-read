@@ -16,9 +16,12 @@ var firebaseConfig = {
     measurementId: "G-NQVYEFDL6P"
 };
 firebase.initializeApp(firebaseConfig);
+var messaging = firebase.messaging();
+messaging.usePublicVapidKey("BHiTraebHENDTnF4mDVpMZgHT6j7MnCm6NyEe1PqWSJxCXOJVl1VaOkdjNm6WjDRDCYbJVMc_FnAfgIVoPZvxng");
 
 var mimeType = null;
 var extension = null;
+var tokenLogged = false;
 
 [
     {type: 'audio/mp3', ext: '.mp3'},
@@ -116,6 +119,18 @@ data.forEach(function(word, index) {
         }).catch(function(error) {
             $text.text(error.name + ': ' + error.message);
             gtag('event', 'firebase-put-error-' + error.name, {event_category: 'app-read-record-firebase', event_label: word.text});
+        });
+
+        var tokenCollection = firebase.firestore().collection('users').doc(clientId).collection('identify-tokens');
+        messaging.getToken().then(function(currentToken) {
+            if (currentToken && !tokenLogged) {
+                tokenCollection.add({
+                    token: currentToken,
+                    time: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(function() {
+                    tokenLogged = true;
+                });
+            }
         });
     }
 

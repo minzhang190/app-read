@@ -38,6 +38,7 @@ if (config.service == 'azure')  {
     scriptFiles = [
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js',
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js',
+        'https://www.gstatic.com/firebasejs/7.14.0/firebase-messaging.js',
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js',
         'record-firebase.js'
     ];
