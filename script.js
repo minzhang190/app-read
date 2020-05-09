@@ -40,6 +40,7 @@ if (config.service == 'azure')  {
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js',
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-messaging.js',
         'https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js',
+        '/gaid.js',
         'record-firebase.js'
     ];
 }

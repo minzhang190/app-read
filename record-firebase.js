@@ -76,18 +76,13 @@ data.forEach(function(word, index) {
         recorder = gumStream = interval = null;
     }
 
-    function ready(e) {
+    function ready(clientId) {
         var blob = new Blob(chunks, {type: mimeType});
 
         running = false;
         $audio.append($('<audio controls/>').attr('src', URL.createObjectURL(blob)));
         $('.go').removeClass('disabled').text('Go');
         gtag('event', 'firebase-ready', {event_category: 'app-read-record-firebase', event_label: word.text});
-
-        var clientId = 'unknown';
-        if (window.ga && window.ga.getAll) {
-            clientId = ga.getAll().map(tracker => tracker.get('clientId')).filter(x => x).pop();
-        }
 
         var storageRef = firebase.storage().ref().child('users').child(clientId).child('read-recordings').child(uuidv4() + extension);
         var dbCollection = firebase.firestore().collection('users').doc(clientId).collection('read-recordings');
@@ -168,7 +163,9 @@ data.forEach(function(word, index) {
                     chunks.push(e.data);
                 });
 
-                recorder.addEventListener('stop', ready);
+                recorder.addEventListener('stop', function(e) {
+                    useGAID(ready);
+                });
 
                 interval = setInterval(function() {
                     countDown--;
